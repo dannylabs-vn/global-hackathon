@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="vi">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Grow Career</title>
+  <link rel="stylesheet" href="styles/popup.css" />
+</head>
+
+<body style="border-radius: 5px;">
+  <!-- ===================== HEADER ===================== -->
+  <header class="header">
+    <div class="logo">
+      <span class="logo-icon"><img src="icons/icon.png" alt="Grow Career" width="22" height="22" /></span>
+      <span class="logo-text">Skill<span style="color: #087f70;">mark.</span></span>
+    </div>
+    <button id="btn-signout" class="btn-ghost hidden" title="Đăng xuất">
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+        <path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4" />
+        <polyline points="16 17 21 12 16 7" />
+        <line x1="21" y1="12" x2="9" y2="12" />
+      </svg>
+    </button>
+  </header>
+
+  <!-- ===================== MAIN ===================== -->
+  <main class="main">
+
+    <!-- Loading state -->
+    <div id="view-loading" class="view">
+      <div class="spinner"></div>
+      <p class="text-muted">Đang kiểm tra...</p>
+    </div>
+
+    <!-- Auth view (not logged in) -->
+    <div id="view-auth" class="view hidden">
+      <div class="auth-tabs">
+        <button id="tab-signin" class="tab-btn active" data-tab="signin">Đăng nhập</button>
+        <button id="tab-signup" class="tab-btn" data-tab="signup">Đăng ký</button>
+      </div>
+
+      <!-- Sign-in form -->
+      <form id="form-signin" class="auth-form">
+        <div class="field">
+          <label for="signin-email">Email</label>
+          <input id="signin-email" type="email" placeholder="you@example.com" required autocomplete="email" />
+        </div>
+        <div class="field">
+          <label for="signin-password">Mật khẩu</label>
+          <input id="signin-password" type="password" placeholder="••••••••" required autocomplete="current-password" />
+        </div>
+        <button type="submit" class="btn-primary btn-full" id="btn-signin">
+          <span class="btn-label">Đăng nhập</span>
+          <span class="btn-spinner hidden"></span>
+        </button>
+        <p id="signin-error" class="error-msg hidden"></p>
+      </form>
+
+      <!-- Sign-up form -->
+      <form id="form-signup" class="auth-form hidden">
+        <div class="field">
+          <label for="signup-email">Email</label>
+          <input id="signup-email" type="email" placeholder="you@example.com" required autocomplete="email" />
+        </div>
+        <div class="field">
+          <label for="signup-password">Mật khẩu</label>
+          <input id="signup-password" type="password" placeholder="Tối thiểu 6 ký tự" required
+            autocomplete="new-password" minlength="6" />
+        </div>
+        <button type="submit" class="btn-primary btn-full" id="btn-signup">
+          <span class="btn-label">Tạo tài khoản</span>
+          <span class="btn-spinner hidden"></span>
+        </button>
+        <p id="signup-error" class="error-msg hidden"></p>
+        <p id="signup-success" class="success-msg hidden">Kiểm tra email để xác nhận tài khoản!</p>
+      </form>
+    </div>
+
+    <!-- Logged-in view -->
+    <div id="view-main" class="view hidden">
+      <div class="user-info">
+        <span class="user-avatar">👤</span>
+        <span id="user-email" class="user-email"></span>
+      </div>
+
+      <!-- Save button area -->
+      <div class="save-area">
+        <div class="current-page" id="current-page-info">
+          <span class="page-icon">🌐</span>
+          <span id="current-page-title" class="page-title">Trang hiện tại</span>
+        </div>
+
+        <button id="btn-save" class="btn-save">
+          <span class="save-icon">📌</span>
+          <span class="btn-label">Save This Page</span>
+          <span class="btn-spinner hidden"></span>
+        </button>
+      </div>
+
+      <!-- Status feedback -->
+      <div id="status-success" class="status-card status-success hidden">
+        <span class="status-icon">✅</span>
+        <div>
+          <p class="status-title">Đã lưu!</p>
+          <p class="status-desc">AI đang phân tích nội dung ở nền...</p>
+        </div>
+      </div>
+
+      <div id="status-error" class="status-card status-error hidden">
+        <span class="status-icon">❌</span>
+        <div>
+          <p class="status-title">Lưu thất bại</p>
+          <p id="status-error-msg" class="status-desc"></p>
+        </div>
+      </div>
+
+      <div id="status-extracting" class="status-card status-info hidden">
+        <span class="status-icon">⏳</span>
+        <div>
+          <p class="status-title">Đang trích xuất nội dung...</p>
+          <p class="status-desc">Đợi một chút nhé</p>
+        </div>
+      </div>
+    </div>
+
+  </main>
+
+  <!-- ===================== FOOTER ===================== -->
+  <footer class="footer">
+    <span>Skillmark.</span>
+  </footer>
+
+  <script type="module" src="popup.js"></script>
+</body>
+
+</html>
