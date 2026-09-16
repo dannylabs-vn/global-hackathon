@@ -10,7 +10,11 @@ import { LearningLoop } from './components/LearningLoop.jsx';
 import { SkillMap } from './components/SkillMap.jsx';
 import { Privacy } from './components/Privacy.jsx';
 import { Footer } from './components/Footer.jsx';
+import { SkillWorkspace } from './components/SkillWorkspace.jsx';
 export function App() {
+  return window.location.pathname.startsWith('/learn') ? <SkillWorkspace /> : <LandingApp />;
+}
+function LandingApp() {
   useReveal();
   useInteractionMotion();
   const [demo, setDemo] = useState(null);

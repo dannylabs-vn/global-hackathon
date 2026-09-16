@@ -8,7 +8,7 @@ export function Navigation() {
         <a href="#how-it-works">How it works</a>
         <a href="#roadmap" data-pencil-name="Roadmap">Roadmap</a>
         <a href="#privacy" className="nav-privacy">Privacy</a>
-        <a href="#get-started" className="nav-install">Add to Chrome <span aria-hidden="true">↗</span></a>
+        <a href="/learn" className="nav-install">Explore workspace <span aria-hidden="true">↗</span></a>
       </nav>
     </header>
   );
