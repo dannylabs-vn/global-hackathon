@@ -1,0 +1,274 @@
+{
+  "niches": [
+    {
+      "id": "frontend",
+      "name": "Frontend Development",
+      "description": "Chuyên xây dựng giao diện người dùng cho web và ứng dụng. Frontend developer biến thiết kế thành sản phẩm tương tác, đảm bảo trải nghiệm mượt mà trên mọi thiết bị và trình duyệt.",
+      "skills": [
+        { "order": 1, "name": "HTML & CSS", "level": "beginner", "description": "Nền tảng cấu trúc và trình bày giao diện web" },
+        { "order": 2, "name": "JavaScript cơ bản", "level": "beginner", "description": "Ngôn ngữ lập trình chính cho tương tác phía client" },
+        { "order": 3, "name": "Responsive Design", "level": "beginner", "description": "Thiết kế giao diện tương thích mọi kích thước màn hình" },
+        { "order": 4, "name": "TypeScript", "level": "intermediate", "description": "JavaScript với hệ thống kiểu tĩnh, giảm lỗi runtime" },
+        { "order": 5, "name": "React hoặc Vue", "level": "intermediate", "description": "Framework xây dựng UI theo component" },
+        { "order": 6, "name": "State Management", "level": "intermediate", "description": "Quản lý trạng thái ứng dụng (Redux, Zustand, Pinia)" },
+        { "order": 7, "name": "Testing (Jest, Cypress)", "level": "intermediate", "description": "Kiểm thử tự động cho UI components và user flows" },
+        { "order": 8, "name": "Performance Optimization", "level": "advanced", "description": "Tối ưu tốc độ tải, rendering, Core Web Vitals" },
+        { "order": 9, "name": "Accessibility (a11y)", "level": "advanced", "description": "Đảm bảo web sử dụng được cho người khuyết tật" },
+        { "order": 10, "name": "Design Systems", "level": "advanced", "description": "Xây dựng hệ thống component tái sử dụng quy mô lớn" }
+      ],
+      "related_keywords": ["html", "css", "javascript", "react", "vue", "angular", "svelte", "tailwind", "sass", "scss", "webpack", "vite", "ui", "ux", "responsive", "animation", "dom", "browser", "frontend", "front-end", "component", "layout", "flexbox", "grid", "accessibility", "design system", "figma"]
+    },
+    {
+      "id": "backend",
+      "name": "Backend Development",
+      "description": "Xây dựng logic phía server, API, và quản lý cơ sở dữ liệu. Backend developer thiết kế kiến trúc hệ thống xử lý dữ liệu, xác thực, và đảm bảo hiệu năng cho hàng nghìn người dùng đồng thời.",
+      "skills": [
+        { "order": 1, "name": "Ngôn ngữ server-side", "level": "beginner", "description": "Java, Python, Node.js, Go, hoặc C# — chọn 1 để bắt đầu" },
+        { "order": 2, "name": "HTTP & REST API", "level": "beginner", "description": "Hiểu giao thức web và thiết kế API chuẩn REST" },
+        { "order": 3, "name": "SQL & Database cơ bản", "level": "beginner", "description": "Thiết kế schema, viết query, hiểu quan hệ dữ liệu" },
+        { "order": 4, "name": "Framework backend", "level": "intermediate", "description": "Spring Boot, Express.js, Django, hoặc Gin" },
+        { "order": 5, "name": "Authentication & Authorization", "level": "intermediate", "description": "JWT, OAuth2, session management, RBAC" },
+        { "order": 6, "name": "ORM & Database nâng cao", "level": "intermediate", "description": "JPA/Hibernate, Prisma, query optimization, indexing" },
+        { "order": 7, "name": "Caching & Message Queue", "level": "advanced", "description": "Redis, RabbitMQ, Kafka — tối ưu hiệu năng hệ thống" },
+        { "order": 8, "name": "Microservices Architecture", "level": "advanced", "description": "Tách hệ thống thành service độc lập, giao tiếp qua API/event" },
+        { "order": 9, "name": "System Design", "level": "advanced", "description": "Thiết kế hệ thống phân tán, scalable, high availability" },
+        { "order": 10, "name": "Security & Hardening", "level": "advanced", "description": "OWASP, rate limiting, input validation, encryption" }
+      ],
+      "related_keywords": ["api", "rest", "graphql", "server", "database", "sql", "nosql", "spring boot", "express", "django", "node.js", "java", "python", "go", "microservice", "authentication", "jwt", "oauth", "backend", "back-end", "endpoint", "middleware", "orm", "hibernate", "prisma", "postgresql", "mysql", "mongodb"]
+    },
+    {
+      "id": "fullstack",
+      "name": "Full-Stack Development",
+      "description": "Kết hợp cả frontend và backend, xây dựng ứng dụng hoàn chỉnh từ giao diện đến server. Full-stack developer có cái nhìn toàn diện về sản phẩm, phù hợp với startup và team nhỏ cần người đa năng.",
+      "skills": [
+        { "order": 1, "name": "HTML, CSS, JavaScript", "level": "beginner", "description": "Nền tảng web bắt buộc cho mọi full-stack developer" },
+        { "order": 2, "name": "Ngôn ngữ backend", "level": "beginner", "description": "Node.js, Python, hoặc Java — chọn 1 để đi sâu" },
+        { "order": 3, "name": "Database cơ bản", "level": "beginner", "description": "SQL + NoSQL, thiết kế schema, CRUD operations" },
+        { "order": 4, "name": "Frontend Framework", "level": "intermediate", "description": "React, Vue, hoặc Next.js cho phía client" },
+        { "order": 5, "name": "Backend Framework", "level": "intermediate", "description": "Express, Spring Boot, hoặc Django cho phía server" },
+        { "order": 6, "name": "API Design & Integration", "level": "intermediate", "description": "REST, GraphQL, kết nối frontend-backend" },
+        { "order": 7, "name": "Authentication Full-flow", "level": "intermediate", "description": "Đăng ký, đăng nhập, phân quyền end-to-end" },
+        { "order": 8, "name": "Deployment & DevOps cơ bản", "level": "advanced", "description": "Docker, CI/CD, deploy lên cloud" },
+        { "order": 9, "name": "Testing End-to-End", "level": "advanced", "description": "Unit test + integration test + E2E test" },
+        { "order": 10, "name": "Architecture & Scalability", "level": "advanced", "description": "Kiến trúc ứng dụng, caching, load balancing" }
+      ],
+      "related_keywords": ["fullstack", "full-stack", "full stack", "mern", "mean", "next.js", "nuxt", "t3 stack", "remix", "supabase", "firebase", "vercel", "netlify", "monorepo", "web app", "saas", "crud", "deploy"]
+    },
+    {
+      "id": "mobile",
+      "name": "Mobile Development",
+      "description": "Phát triển ứng dụng cho iOS và Android. Mobile developer xây dựng app native hoặc cross-platform, tối ưu trải nghiệm trên thiết bị di động với giới hạn về pin, mạng, và kích thước màn hình.",
+      "skills": [
+        { "order": 1, "name": "Ngôn ngữ nền tảng", "level": "beginner", "description": "Kotlin (Android), Swift (iOS), hoặc Dart (Flutter)" },
+        { "order": 2, "name": "UI Framework mobile", "level": "beginner", "description": "Jetpack Compose, SwiftUI, hoặc Flutter widgets" },
+        { "order": 3, "name": "Navigation & State", "level": "intermediate", "description": "Quản lý màn hình, routing, state trong app" },
+        { "order": 4, "name": "API Integration", "level": "intermediate", "description": "Gọi REST/GraphQL API, xử lý offline, caching" },
+        { "order": 5, "name": "Local Storage", "level": "intermediate", "description": "SQLite, Room, Core Data, shared preferences" },
+        { "order": 6, "name": "Push Notifications", "level": "intermediate", "description": "Firebase Cloud Messaging, APNs" },
+        { "order": 7, "name": "Testing & Debugging", "level": "intermediate", "description": "Unit test, widget test, profiling hiệu năng" },
+        { "order": 8, "name": "App Store Deployment", "level": "advanced", "description": "Build, signing, publish lên Google Play / App Store" },
+        { "order": 9, "name": "Performance Optimization", "level": "advanced", "description": "Tối ưu memory, battery, startup time" },
+        { "order": 10, "name": "Platform-specific APIs", "level": "advanced", "description": "Camera, GPS, biometrics, background tasks" }
+      ],
+      "related_keywords": ["android", "ios", "swift", "kotlin", "flutter", "dart", "react native", "mobile", "app", "jetpack compose", "swiftui", "expo", "xcode", "android studio", "apk", "ipa", "play store", "app store", "responsive mobile"]
+    },
+    {
+      "id": "devops",
+      "name": "DevOps / Cloud Engineering",
+      "description": "Kết nối phát triển và vận hành, tự động hóa quy trình triển khai phần mềm. DevOps engineer xây dựng pipeline CI/CD, quản lý hạ tầng cloud, và đảm bảo hệ thống luôn sẵn sàng.",
+      "skills": [
+        { "order": 1, "name": "Linux & Command Line", "level": "beginner", "description": "Nền tảng bắt buộc cho mọi DevOps engineer" },
+        { "order": 2, "name": "Git & Version Control", "level": "beginner", "description": "Branching, merging, collaboration workflows" },
+        { "order": 3, "name": "Networking cơ bản", "level": "beginner", "description": "TCP/IP, DNS, HTTP, firewall, load balancer" },
+        { "order": 4, "name": "Docker & Containerization", "level": "intermediate", "description": "Đóng gói ứng dụng thành container portable" },
+        { "order": 5, "name": "CI/CD Pipelines", "level": "intermediate", "description": "GitHub Actions, GitLab CI, Jenkins — tự động build/test/deploy" },
+        { "order": 6, "name": "Cloud Provider", "level": "intermediate", "description": "AWS, GCP, hoặc Azure — compute, storage, networking" },
+        { "order": 7, "name": "Infrastructure as Code", "level": "advanced", "description": "Terraform, Ansible — quản lý hạ tầng bằng code" },
+        { "order": 8, "name": "Kubernetes", "level": "advanced", "description": "Orchestration container ở production scale" },
+        { "order": 9, "name": "Monitoring & Observability", "level": "advanced", "description": "Prometheus, Grafana, ELK — giám sát hệ thống" },
+        { "order": 10, "name": "Security & Compliance", "level": "advanced", "description": "DevSecOps, secrets management, audit logging" }
+      ],
+      "related_keywords": ["docker", "kubernetes", "k8s", "ci/cd", "github actions", "jenkins", "aws", "gcp", "azure", "terraform", "ansible", "linux", "nginx", "devops", "cloud", "serverless", "lambda", "ec2", "s3", "pipeline", "infrastructure", "monitoring", "grafana", "prometheus", "helm"]
+    },
+    {
+      "id": "data_science",
+      "name": "Data Science / Analytics",
+      "description": "Phân tích dữ liệu để tìm insight và hỗ trợ ra quyết định kinh doanh. Data scientist kết hợp thống kê, lập trình, và kiến thức domain để biến dữ liệu thô thành thông tin có giá trị.",
+      "skills": [
+        { "order": 1, "name": "Python cho Data", "level": "beginner", "description": "NumPy, Pandas — xử lý và thao tác dữ liệu" },
+        { "order": 2, "name": "Thống kê cơ bản", "level": "beginner", "description": "Xác suất, phân phối, hypothesis testing" },
+        { "order": 3, "name": "SQL cho phân tích", "level": "beginner", "description": "Query phức tạp, window functions, aggregation" },
+        { "order": 4, "name": "Data Visualization", "level": "intermediate", "description": "Matplotlib, Seaborn, Plotly, hoặc Tableau" },
+        { "order": 5, "name": "Exploratory Data Analysis", "level": "intermediate", "description": "Kỹ thuật khám phá, làm sạch, và chuẩn bị dữ liệu" },
+        { "order": 6, "name": "Machine Learning cơ bản", "level": "intermediate", "description": "Regression, classification, clustering với scikit-learn" },
+        { "order": 7, "name": "Feature Engineering", "level": "advanced", "description": "Tạo và chọn features tối ưu cho model" },
+        { "order": 8, "name": "A/B Testing & Experimentation", "level": "advanced", "description": "Thiết kế thí nghiệm, đo lường impact" },
+        { "order": 9, "name": "Big Data Tools", "level": "advanced", "description": "Spark, Hadoop — xử lý dữ liệu quy mô lớn" },
+        { "order": 10, "name": "Storytelling with Data", "level": "advanced", "description": "Trình bày kết quả phân tích cho stakeholders" }
+      ],
+      "related_keywords": ["data science", "data analysis", "analytics", "pandas", "numpy", "statistics", "visualization", "tableau", "power bi", "jupyter", "notebook", "dataset", "csv", "data cleaning", "eda", "a/b testing", "correlation", "regression", "matplotlib", "seaborn", "plotly", "r language", "spreadsheet"]
+    },
+    {
+      "id": "ml_ai",
+      "name": "Machine Learning / AI Engineering",
+      "description": "Xây dựng và triển khai mô hình AI/ML vào sản phẩm thực tế. ML engineer kết hợp kiến thức toán học, lập trình, và kỹ thuật hệ thống để đưa model từ nghiên cứu sang production.",
+      "skills": [
+        { "order": 1, "name": "Python & Toán nền tảng", "level": "beginner", "description": "Linear algebra, calculus, xác suất thống kê" },
+        { "order": 2, "name": "Machine Learning cơ bản", "level": "beginner", "description": "Supervised/unsupervised learning, evaluation metrics" },
+        { "order": 3, "name": "Scikit-learn", "level": "beginner", "description": "Framework ML cổ điển cho tabular data" },
+        { "order": 4, "name": "Deep Learning", "level": "intermediate", "description": "Neural networks, CNN, RNN với PyTorch hoặc TensorFlow" },
+        { "order": 5, "name": "NLP hoặc Computer Vision", "level": "intermediate", "description": "Chọn 1 chuyên ngành: xử lý ngôn ngữ hoặc thị giác máy" },
+        { "order": 6, "name": "LLM & Generative AI", "level": "intermediate", "description": "Prompt engineering, fine-tuning, RAG, LangChain" },
+        { "order": 7, "name": "MLOps", "level": "advanced", "description": "MLflow, model versioning, training pipeline" },
+        { "order": 8, "name": "Model Deployment", "level": "advanced", "description": "Serving model qua API, optimization cho inference" },
+        { "order": 9, "name": "Distributed Training", "level": "advanced", "description": "Training trên multi-GPU, cloud training" },
+        { "order": 10, "name": "Research & Paper Reading", "level": "advanced", "description": "Đọc hiểu và implement paper nghiên cứu mới" }
+      ],
+      "related_keywords": ["machine learning", "deep learning", "neural network", "ai", "artificial intelligence", "tensorflow", "pytorch", "model", "training", "nlp", "natural language processing", "computer vision", "llm", "gpt", "transformer", "bert", "fine-tuning", "rag", "langchain", "generative ai", "prompt engineering", "hugging face", "openai", "reinforcement learning"]
+    },
+    {
+      "id": "cybersecurity",
+      "name": "Cybersecurity",
+      "description": "Bảo vệ hệ thống, mạng, và dữ liệu khỏi các mối đe dọa an ninh mạng. Cybersecurity engineer phát hiện lỗ hổng, xây dựng hệ thống phòng thủ, và ứng phó sự cố bảo mật.",
+      "skills": [
+        { "order": 1, "name": "Networking Fundamentals", "level": "beginner", "description": "TCP/IP, DNS, HTTP/S, firewall, VPN" },
+        { "order": 2, "name": "Linux & Windows Security", "level": "beginner", "description": "Quản lý hệ điều hành, permissions, logging" },
+        { "order": 3, "name": "Security Concepts", "level": "beginner", "description": "CIA triad, encryption, hashing, certificates" },
+        { "order": 4, "name": "Web Security (OWASP)", "level": "intermediate", "description": "XSS, SQL injection, CSRF — phát hiện và phòng chống" },
+        { "order": 5, "name": "Vulnerability Assessment", "level": "intermediate", "description": "Scanning, enumeration, risk assessment" },
+        { "order": 6, "name": "Penetration Testing", "level": "intermediate", "description": "Kali Linux, Burp Suite, Metasploit" },
+        { "order": 7, "name": "Incident Response", "level": "advanced", "description": "Phát hiện, phân tích, và ứng phó sự cố bảo mật" },
+        { "order": 8, "name": "SIEM & SOC Operations", "level": "advanced", "description": "Security monitoring, log analysis, threat hunting" },
+        { "order": 9, "name": "Cloud Security", "level": "advanced", "description": "Bảo mật trên AWS/GCP/Azure, IAM, network policies" },
+        { "order": 10, "name": "Compliance & Governance", "level": "advanced", "description": "ISO 27001, GDPR, PCI-DSS, security audit" }
+      ],
+      "related_keywords": ["security", "cybersecurity", "hacking", "penetration testing", "pentest", "vulnerability", "exploit", "malware", "firewall", "encryption", "owasp", "xss", "sql injection", "kali", "burp suite", "ctf", "soc", "siem", "threat", "incident response", "forensics", "phishing", "zero trust"]
+    },
+    {
+      "id": "game_dev",
+      "name": "Game Development",
+      "description": "Tạo trò chơi điện tử cho PC, console, và mobile. Game developer kết hợp lập trình, nghệ thuật, và thiết kế để xây dựng trải nghiệm tương tác giải trí.",
+      "skills": [
+        { "order": 1, "name": "Ngôn ngữ lập trình game", "level": "beginner", "description": "C# (Unity) hoặc C++ (Unreal Engine)" },
+        { "order": 2, "name": "Game Engine cơ bản", "level": "beginner", "description": "Unity hoặc Unreal — editor, scenes, objects" },
+        { "order": 3, "name": "2D/3D Math", "level": "beginner", "description": "Vectors, matrices, transforms, physics cơ bản" },
+        { "order": 4, "name": "Game Physics", "level": "intermediate", "description": "Collision detection, rigidbody, raycasting" },
+        { "order": 5, "name": "Game Design Patterns", "level": "intermediate", "description": "State machine, observer, object pooling" },
+        { "order": 6, "name": "AI cho Game", "level": "intermediate", "description": "Pathfinding (A*), behavior trees, NPC logic" },
+        { "order": 7, "name": "Graphics Programming", "level": "advanced", "description": "Shaders, rendering pipeline, lighting" },
+        { "order": 8, "name": "Multiplayer & Networking", "level": "advanced", "description": "Client-server, netcode, synchronization" },
+        { "order": 9, "name": "Optimization", "level": "advanced", "description": "Profiling, LOD, draw call batching, memory management" },
+        { "order": 10, "name": "Publishing & Monetization", "level": "advanced", "description": "Platform SDKs, analytics, in-app purchases" }
+      ],
+      "related_keywords": ["game", "game development", "unity", "unreal", "godot", "c#", "game engine", "gamedev", "2d", "3d", "sprite", "shader", "opengl", "vulkan", "directx", "physics", "collision", "multiplayer", "pixel art", "game design", "level design", "steam", "indie game"]
+    },
+    {
+      "id": "embedded_iot",
+      "name": "Embedded / IoT",
+      "description": "Lập trình cho vi điều khiển, thiết bị nhúng, và hệ thống IoT. Embedded engineer viết firmware gần phần cứng, tối ưu bộ nhớ và năng lượng cho các thiết bị có tài nguyên giới hạn.",
+      "skills": [
+        { "order": 1, "name": "C/C++", "level": "beginner", "description": "Ngôn ngữ chính cho embedded systems" },
+        { "order": 2, "name": "Kiến trúc vi điều khiển", "level": "beginner", "description": "Arduino, ESP32, STM32 — GPIO, ADC, timers" },
+        { "order": 3, "name": "Điện tử cơ bản", "level": "beginner", "description": "Mạch điện, sensors, actuators, đọc datasheet" },
+        { "order": 4, "name": "Communication Protocols", "level": "intermediate", "description": "UART, SPI, I2C, CAN bus" },
+        { "order": 5, "name": "RTOS", "level": "intermediate", "description": "FreeRTOS, task scheduling, real-time constraints" },
+        { "order": 6, "name": "IoT Protocols", "level": "intermediate", "description": "MQTT, CoAP, BLE, WiFi, LoRa" },
+        { "order": 7, "name": "Firmware Development", "level": "advanced", "description": "Boot process, OTA updates, memory management" },
+        { "order": 8, "name": "Linux Embedded", "level": "advanced", "description": "Yocto, Buildroot, device drivers, kernel modules" },
+        { "order": 9, "name": "Hardware-Software Integration", "level": "advanced", "description": "PCB design review, signal integrity, debugging tools" },
+        { "order": 10, "name": "Safety & Certification", "level": "advanced", "description": "IEC 61508, automotive (MISRA C), medical device standards" }
+      ],
+      "related_keywords": ["embedded", "iot", "internet of things", "arduino", "esp32", "stm32", "raspberry pi", "firmware", "microcontroller", "sensor", "rtos", "freertos", "mqtt", "uart", "spi", "i2c", "gpio", "pcb", "hardware", "electronics", "c language", "low-level", "bare metal", "smart home"]
+    },
+    {
+      "id": "blockchain",
+      "name": "Blockchain / Web3",
+      "description": "Phát triển ứng dụng phi tập trung trên nền tảng blockchain. Web3 developer viết smart contracts, xây dựng DApps, và thiết kế hệ thống tài chính phi tập trung (DeFi).",
+      "skills": [
+        { "order": 1, "name": "Blockchain Fundamentals", "level": "beginner", "description": "Consensus, blocks, transactions, wallets" },
+        { "order": 2, "name": "Solidity", "level": "beginner", "description": "Ngôn ngữ smart contract chính cho Ethereum" },
+        { "order": 3, "name": "Web3 Libraries", "level": "beginner", "description": "Ethers.js, Web3.js — tương tác với blockchain từ frontend" },
+        { "order": 4, "name": "Smart Contract Development", "level": "intermediate", "description": "Hardhat, Foundry — develop, test, deploy contracts" },
+        { "order": 5, "name": "DeFi Protocols", "level": "intermediate", "description": "AMM, lending, staking — hiểu cơ chế tài chính phi tập trung" },
+        { "order": 6, "name": "Token Standards", "level": "intermediate", "description": "ERC-20, ERC-721 (NFT), ERC-1155" },
+        { "order": 7, "name": "Security & Auditing", "level": "advanced", "description": "Reentrancy, flash loans, formal verification" },
+        { "order": 8, "name": "Layer 2 & Scaling", "level": "advanced", "description": "Rollups, sidechains, state channels" },
+        { "order": 9, "name": "Cross-chain Development", "level": "advanced", "description": "Bridges, interoperability protocols" },
+        { "order": 10, "name": "Tokenomics & Governance", "level": "advanced", "description": "Thiết kế economic model cho protocol" }
+      ],
+      "related_keywords": ["blockchain", "web3", "smart contract", "solidity", "ethereum", "bitcoin", "crypto", "cryptocurrency", "defi", "nft", "token", "wallet", "metamask", "hardhat", "foundry", "dapp", "decentralized", "consensus", "mining", "staking", "layer 2", "rollup", "solana", "polygon"]
+    },
+    {
+      "id": "qa_testing",
+      "name": "QA / Testing Engineering",
+      "description": "Đảm bảo chất lượng phần mềm thông qua kiểm thử tự động và thủ công. QA engineer thiết kế test strategy, viết automated tests, và phát hiện lỗi trước khi sản phẩm đến tay người dùng.",
+      "skills": [
+        { "order": 1, "name": "Testing Fundamentals", "level": "beginner", "description": "Test cases, test plans, bug reporting, SDLC" },
+        { "order": 2, "name": "Manual Testing", "level": "beginner", "description": "Exploratory testing, regression testing, UAT" },
+        { "order": 3, "name": "Ngôn ngữ scripting", "level": "beginner", "description": "Python hoặc JavaScript cho automation" },
+        { "order": 4, "name": "Web UI Automation", "level": "intermediate", "description": "Selenium, Playwright, hoặc Cypress" },
+        { "order": 5, "name": "API Testing", "level": "intermediate", "description": "Postman, REST Assured, contract testing" },
+        { "order": 6, "name": "CI/CD Integration", "level": "intermediate", "description": "Chạy test tự động trong pipeline" },
+        { "order": 7, "name": "Performance Testing", "level": "advanced", "description": "JMeter, k6, Gatling — load testing, stress testing" },
+        { "order": 8, "name": "Mobile Testing", "level": "advanced", "description": "Appium, XCUITest, Espresso" },
+        { "order": 9, "name": "Security Testing", "level": "advanced", "description": "OWASP ZAP, static analysis, dependency scanning" },
+        { "order": 10, "name": "Test Architecture", "level": "advanced", "description": "Test pyramid, Page Object Model, test data management" }
+      ],
+      "related_keywords": ["testing", "qa", "quality assurance", "test automation", "selenium", "playwright", "cypress", "jest", "junit", "pytest", "bug", "regression", "manual testing", "postman", "api testing", "performance testing", "jmeter", "tdd", "bdd", "test case", "unit test", "integration test", "e2e"]
+    },
+    {
+      "id": "sysadmin",
+      "name": "System / Network Administration",
+      "description": "Quản lý hạ tầng IT, server, và mạng cho tổ chức. Sysadmin đảm bảo hệ thống luôn hoạt động ổn định, xử lý sự cố, và lên kế hoạch nâng cấp hạ tầng.",
+      "skills": [
+        { "order": 1, "name": "Linux Administration", "level": "beginner", "description": "File system, users, permissions, services, systemd" },
+        { "order": 2, "name": "Windows Server", "level": "beginner", "description": "Active Directory, Group Policy, IIS" },
+        { "order": 3, "name": "Networking", "level": "beginner", "description": "TCP/IP, subnetting, VLAN, routing, switching" },
+        { "order": 4, "name": "Shell Scripting", "level": "intermediate", "description": "Bash, PowerShell — tự động hóa tác vụ quản trị" },
+        { "order": 5, "name": "Virtualization", "level": "intermediate", "description": "VMware, Proxmox, Hyper-V — quản lý VM" },
+        { "order": 6, "name": "Backup & Disaster Recovery", "level": "intermediate", "description": "Backup strategy, replication, restore testing" },
+        { "order": 7, "name": "Monitoring & Alerting", "level": "advanced", "description": "Zabbix, Nagios, Uptime Kuma — giám sát 24/7" },
+        { "order": 8, "name": "Configuration Management", "level": "advanced", "description": "Ansible, Puppet — quản lý cấu hình hàng loạt" },
+        { "order": 9, "name": "High Availability", "level": "advanced", "description": "Clustering, failover, load balancing" },
+        { "order": 10, "name": "Compliance & Documentation", "level": "advanced", "description": "ITIL, change management, SLA tracking" }
+      ],
+      "related_keywords": ["sysadmin", "system admin", "network", "linux", "windows server", "active directory", "dns", "dhcp", "firewall", "vpn", "proxmox", "vmware", "virtualization", "homelab", "server", "rack", "raid", "backup", "monitoring", "nagios", "zabbix", "tcp/ip", "subnetting", "switch", "router", "pfsense"]
+    },
+    {
+      "id": "database",
+      "name": "Database Engineering",
+      "description": "Thiết kế, tối ưu, và vận hành hệ thống cơ sở dữ liệu. Database engineer đảm bảo dữ liệu được lưu trữ an toàn, truy vấn nhanh, và có khả năng mở rộng theo quy mô doanh nghiệp.",
+      "skills": [
+        { "order": 1, "name": "SQL nền tảng", "level": "beginner", "description": "DDL, DML, joins, subqueries, aggregation" },
+        { "order": 2, "name": "Database Design", "level": "beginner", "description": "ERD, normalization, relationships, constraints" },
+        { "order": 3, "name": "PostgreSQL hoặc MySQL", "level": "beginner", "description": "Chọn 1 RDBMS để đi sâu" },
+        { "order": 4, "name": "Query Optimization", "level": "intermediate", "description": "EXPLAIN, indexing strategy, query plans" },
+        { "order": 5, "name": "NoSQL Databases", "level": "intermediate", "description": "MongoDB, Redis, DynamoDB — khi nào dùng cái nào" },
+        { "order": 6, "name": "Stored Procedures & Functions", "level": "intermediate", "description": "Server-side logic, triggers, PL/pgSQL" },
+        { "order": 7, "name": "Replication & Sharding", "level": "advanced", "description": "Master-slave, partitioning, horizontal scaling" },
+        { "order": 8, "name": "Data Pipeline & ETL", "level": "advanced", "description": "Airflow, dbt — chuyển đổi và nạp dữ liệu" },
+        { "order": 9, "name": "Database Security", "level": "advanced", "description": "Encryption at rest, audit logging, access control" },
+        { "order": 10, "name": "Cloud Databases", "level": "advanced", "description": "RDS, Cloud SQL, Aurora, Supabase — managed DB services" }
+      ],
+      "related_keywords": ["database", "sql", "postgresql", "mysql", "mongodb", "redis", "oracle", "sql server", "schema", "query", "index", "normalization", "erd", "nosql", "data modeling", "stored procedure", "trigger", "migration", "replication", "sharding", "etl", "data pipeline", "dbt", "supabase", "prisma"]
+    },
+    {
+      "id": "tech_lead",
+      "name": "Technical Leadership",
+      "description": "Dẫn dắt kỹ thuật cho team và tổ chức. Tech lead kết hợp chuyên môn kỹ thuật sâu với kỹ năng quản lý, đưa ra quyết định kiến trúc và mentor cho developer trong team.",
+      "skills": [
+        { "order": 1, "name": "Chuyên môn kỹ thuật sâu", "level": "beginner", "description": "Thành thạo ít nhất 1 lĩnh vực kỹ thuật (backend, frontend, infra)" },
+        { "order": 2, "name": "Code Review & Mentoring", "level": "beginner", "description": "Đánh giá code, hướng dẫn junior, chia sẻ kiến thức" },
+        { "order": 3, "name": "System Design", "level": "intermediate", "description": "Thiết kế kiến trúc hệ thống ở mức high-level" },
+        { "order": 4, "name": "Technical Decision Making", "level": "intermediate", "description": "Đánh giá trade-offs, chọn công nghệ, viết ADR" },
+        { "order": 5, "name": "Agile & Project Management", "level": "intermediate", "description": "Scrum, sprint planning, estimation, retrospective" },
+        { "order": 6, "name": "Communication Skills", "level": "intermediate", "description": "Trình bày kỹ thuật cho non-tech stakeholders" },
+        { "order": 7, "name": "Team Building", "level": "advanced", "description": "Tuyển dụng, onboarding, phát triển năng lực team" },
+        { "order": 8, "name": "Cross-team Collaboration", "level": "advanced", "description": "Phối hợp với product, design, business teams" },
+        { "order": 9, "name": "Technical Strategy", "level": "advanced", "description": "Tech radar, platform vision, tech debt management" },
+        { "order": 10, "name": "Engineering Culture", "level": "advanced", "description": "Xây dựng văn hóa kỹ thuật, documentation, standards" }
+      ],
+      "related_keywords": ["tech lead", "technical lead", "engineering manager", "architect", "system design", "architecture", "leadership", "management", "team lead", "agile", "scrum", "mentor", "code review", "decision making", "strategy", "staff engineer", "principal engineer", "cto", "vp engineering"]
+    }
+  ]
+}

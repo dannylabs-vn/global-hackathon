@@ -1,0 +1,60 @@
+.reveal { transition: opacity .7s ease, translate .7s cubic-bezier(.2,.7,.2,1); }
+.reveal-pending { opacity: 0; translate: 0 24px; }
+#hero > * { animation: enter .7s both; }
+#hero > :nth-child(2) { animation-delay: .08s; }
+#hero > :nth-child(3) { animation-delay: .16s; }
+#hero > :nth-child(4) { animation-delay: .24s; }
+#hero > :nth-child(5) { animation-delay: .32s; }
+@keyframes enter { from { opacity: 0; translate: 0 16px; } to { opacity: 1; translate: 0 0; } }
+/* Reveal the marker ink without moving the headline or hiding its text. */
+@keyframes marker-sweep {
+  from { clip-path: inset(-20% 100% -20% -5%); }
+  to { clip-path: inset(-20% -5% -20% -5%); }
+}
+@keyframes marker-replay {
+  from { clip-path: inset(-20% 100% -20% -5%); }
+  to { clip-path: inset(-20% -5% -20% -5%); }
+}
+@media (prefers-reduced-motion: no-preference) {
+  .hero-highlight::before { animation: marker-sweep .95s .65s cubic-bezier(.22,.7,.3,1) both; }
+}
+@media (prefers-reduced-motion: no-preference) and (hover: hover) and (pointer: fine) {
+  .hero-highlight:hover::before { animation: marker-replay .7s cubic-bezier(.22,.7,.3,1) both; }
+}
+[data-pencil-name="Primary CTA"], [data-pencil-name="Secondary CTA"], [data-pencil-name="Big CTA"], [data-pencil-name="Nav Right"] a { transition: translate .2s ease, box-shadow .2s ease, color .2s ease; }
+@media (hover: hover) {
+  [data-pencil-name="Primary CTA"]:hover, [data-pencil-name="Secondary CTA"]:hover, [data-pencil-name="Big CTA"]:hover { translate: 0 -3px; box-shadow: 0 10px 28px #087f7022; }
+  [data-pencil-name="Nav Right"] a:hover { color: var(--brand) !important; }
+  [data-pencil-name="Feature Row"] > * { transition: translate .25s ease; }
+  [data-pencil-name="Feature Row"] > *:hover { translate: 0 -5px; }
+}
+#roadmap.revealed [data-pencil-name="Bar"] { animation: grow-bar 1s cubic-bezier(.2,.7,.2,1) both; transform-origin: left; }
+@keyframes grow-bar { from { transform: scaleX(0); } to { transform: scaleX(1); } }
+.reading-progress { position: fixed; inset: 0 0 auto; height: 3px; background: var(--brand); transform: scaleX(var(--progress, 0)); transform-origin: left; z-index: 100; pointer-events: none; }
+#top a { position: relative; }
+#top a::after { content: ""; position: absolute; left: 0; right: 0; bottom: -6px; height: 2px; background: var(--brand); transform: scaleX(0); transform-origin: left; transition: transform .25s ease; }
+#top a:hover::after, #top a:focus-visible::after, #top a[aria-current="location"]::after { transform: scaleX(1); }
+#top a[aria-current="location"] { color: var(--brand) !important; }
+#product [data-pencil-name="Article device"], #product [data-pencil-name="Map device"], #product [data-pencil-name="Margin popover"] { transition: translate .45s ease-out, box-shadow .3s ease; }
+#product [data-pencil-name="Article device"] { translate: calc(var(--pointer-x, 0px) * -.4) calc(var(--pointer-y, 0px) * -.4); }
+#product [data-pencil-name="Map device"] { translate: var(--pointer-x, 0px) var(--pointer-y, 0px); }
+#product [data-pencil-name="Margin popover"] { translate: calc(var(--pointer-x, 0px) * 1.5) calc(var(--pointer-y, 0px) * 1.5); }
+.revealed [data-pencil-name="Feature Row"] > *, .revealed [data-pencil-name="Steps Row"] > * { animation: card-enter .65s both; }
+.revealed [data-pencil-name="Feature Row"] > :nth-child(2), .revealed [data-pencil-name="Steps Row"] > :nth-child(2) { animation-delay: .08s; }
+.revealed [data-pencil-name="Feature Row"] > :nth-child(3), .revealed [data-pencil-name="Steps Row"] > :nth-child(3) { animation-delay: .16s; }
+.revealed [data-pencil-name="Feature Row"] > :nth-child(4), .revealed [data-pencil-name="Steps Row"] > :nth-child(4) { animation-delay: .24s; }
+@keyframes card-enter { from { opacity: 0; transform: translateY(18px); } to { opacity: 1; transform: translateY(0); } }
+[data-pencil-name="Steps Row"] > *, #roadmap [data-pencil-name="Map Card"] > * { transition: background-color .25s ease, translate .25s ease; }
+[data-pencil-name="Secondary CTA"] svg { transition: translate .25s ease; }
+[data-pencil-name="Secondary CTA"]:is(:hover, :focus-visible) svg { translate: 0 3px; }
+[data-pencil-name="Secondary CTA"]:active { translate: 0 0; scale: .98; }
+@media (hover: hover) and (pointer: fine) {
+  [data-pencil-name="Steps Row"] > *:hover { translate: 0 -4px; background-color: var(--mint) !important; }
+  #roadmap [data-pencil-name="Map Card"] > *:has([data-pencil-name="Track"]):hover { background-color: var(--mint); translate: 3px 0; }
+  #product [data-pencil-name="Margin popover"]:hover { box-shadow: 0 14px 36px #087f7020 !important; }
+}
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after { animation: none !important; transition: none !important; scroll-behavior: auto !important; }
+  .reveal-pending { opacity: 1; translate: none; }
+  #product [data-pencil-name="Article device"], #product [data-pencil-name="Map device"], #product [data-pencil-name="Margin popover"] { translate: none; }
+}
