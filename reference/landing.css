@@ -1,0 +1,55 @@
+html { scroll-behavior: smooth; }
+body { color: #1a1a1a; background: #fff; }
+body > [data-pencil-name="2. Landing"] { margin: auto; }
+[data-pencil-name="Wordmark"] > [data-pencil-name="Skillmark"],
+[data-pencil-name="Wordmark"] > [data-pencil-name="Dot"] {
+  font-family: "Source Sans Pro", sans-serif !important;
+  font-weight: 700 !important;
+  letter-spacing: -0.5px !important;
+}
+a { color: inherit; text-decoration: none; }
+a:focus-visible { outline: 3px solid #0066ff; outline-offset: 5px; }
+[id] { scroll-margin-top: 24px; }
+[data-pencil-name="2. Hero"] [data-pencil-name="Part B"] { position: relative; isolation: isolate; white-space: nowrap !important; }
+[data-pencil-name="2. Hero"] [data-pencil-name="Part B"]::before,
+[data-pencil-name="2. Hero"] [data-pencil-name="Part B"]::after {
+  content: ""; position: absolute; pointer-events: none; z-index: -1;
+  inset: -0.12em -0.18em -0.14em; border: 2.5px solid #0066ff;
+  border-radius: 49% 53% 47% 51% / 51% 46% 54% 49%; transform: rotate(-4deg);
+}
+[data-pencil-name="2. Hero"] [data-pencil-name="Part B"]::after {
+  inset: -0.08em -0.21em -0.18em -0.13em; border-width: 1.5px;
+  border-radius: 53% 47% 52% 48% / 46% 56% 44% 54%; transform: rotate(-2deg); opacity: .65;
+}
+@media (prefers-reduced-motion: reduce) { html { scroll-behavior: auto; } }
+@media (max-width: 1439px) {
+  body > [data-pencil-name="2. Landing"] { width: 100% !important; height: auto !important; overflow: hidden !important; }
+  body > [data-pencil-name="2. Landing"] > div { position: relative !important; left: auto !important; top: auto !important; width: 100% !important; }
+  body > [data-pencil-name="2. Landing"] > div:not([data-pencil-name="2. Hero Cascade"]):not([data-pencil-name="3. Device Cascade"]) { height: auto !important; min-height: 100px; padding: 40px 5% !important; }
+  [data-pencil-name="2. Nav"] { padding: 24px 5% !important; }
+  [data-pencil-name="2. Hero Cascade"] { width: 1440px !important; height: 810px !important; transform-origin: top left; }
+  body > [data-pencil-name="2. Landing"] > [data-pencil-name="3. Device Cascade"] { width: 1440px !important; height: 1000px !important; transform-origin: top left; }
+  [data-pencil-name="2. Privacy"] { border-radius: 0 !important; }
+  [data-pencil-name="Headline"], [data-pencil-name="Sub"], [data-pencil-name="Map Card"] { max-width: 100% !important; }
+  [data-pencil-name="Headline Wrap"], [data-pencil-name="Sub Wrap"] { max-width: 100%; }
+  [data-pencil-name="2. Hero"] [data-pencil-name="Headline"] { width: 100% !important; }
+  [data-pencil-name="2. Hero"] [data-pencil-name="Line 1"],
+  [data-pencil-name="2. Hero"] [data-pencil-name="Part A"],
+  [data-pencil-name="2. Hero"] [data-pencil-name="Part B"] { font-size: clamp(32px, 4vw, 58px) !important; white-space: normal !important; text-align: center !important; max-width: 100%; }
+  [data-pencil-name="2. Hero"] [data-pencil-name="Line 2"] { flex-wrap: wrap; justify-content: center !important; width: 100% !important; gap: 0 13px !important; }
+  [data-pencil-name="Feature Row"], [data-pencil-name="Steps Row"], [data-pencil-name="Marks"], [data-pencil-name="Facts"] { flex-wrap: wrap; justify-content: center !important; }
+}
+@media (max-width: 700px) {
+  [data-pencil-name="Nav Right"] { gap: 14px !important; flex-wrap: wrap; justify-content: flex-end !important; }
+  [data-pencil-name="Nav Right"] > [data-pencil-name="Roadmap"] { display: none !important; }
+  [data-pencil-name="Headline"] { font-size: 32px !important; white-space: normal !important; }
+  [data-pencil-name="CTA Row"], [data-pencil-name="CTA row"], [data-pencil-name="Legend"], [data-pencil-name="Links"] { flex-wrap: wrap; justify-content: center !important; gap: 16px !important; max-width: 100%; }
+  [data-pencil-name="Feature Row"], [data-pencil-name="Steps Row"] { width: 100%; }
+  [data-pencil-name="Feature Row"] > div, [data-pencil-name="Steps Row"] > div { max-width: 100% !important; }
+  [data-pencil-name="Map Card"] { padding: 20px 14px !important; overflow-x: auto; }
+  [data-pencil-name="Map Card"] [data-pencil-name="Name"] { width: 100px !important; font-size: 12px !important; }
+  [data-pencil-name="Map Card"] [data-pencil-name="Track"] { min-width: 0; }
+  [data-pencil-name="Map Card"] [data-pencil-name="Gap Row"] { flex-wrap: wrap; }
+  [data-pencil-name="Map Card"] [data-pencil-name="Gap Row"] > div { max-width: 100%; white-space: normal !important; }
+  [data-pencil-name="Copyright"], [data-pencil-name="Trust Wrap"] > div { white-space: normal !important; text-align: center; }
+}
