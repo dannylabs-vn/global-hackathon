@@ -1,0 +1,25 @@
+.sw-app textarea { display:block; width:100%; padding:12px 14px; border:1px solid #bfd5c7; border-radius:9px; color:var(--ink); background:#fff; margin-top:8px; resize:vertical; font:inherit; }
+.sw-app textarea:focus-visible { outline:3px solid var(--brand); outline-offset:3px; }
+.sw-app input[type=checkbox] { display:inline-block; width:18px; height:18px; padding:0; margin:0; accent-color:var(--brand); }
+.lj-form fieldset { border:0; padding:0; margin:0; min-width:0; }
+.lj-form label,.lj-reflection { display:block; font-size:12px; font-weight:650; margin-bottom:20px; }
+.lj-form h3 { font-size:23px; }.lj-form h4 { margin:0 0 8px; }
+.lj-fields { display:grid; grid-template-columns:1fr 1fr; gap:0 18px; }
+.lj-availability { margin:24px 0; padding:20px; border-radius:12px; background:var(--mint); }
+.lj-day { display:flex; justify-content:space-between; align-items:center; gap:12px; padding:8px 0; min-height:56px; border-bottom:1px solid var(--line); }
+.lj-day:last-child { border:0; }.lj-day>label { display:flex; align-items:center; gap:10px; margin:0; }
+.lj-day>div { display:flex; align-items:center; gap:7px; }.lj-day>div label { margin:0; }
+.lj-day input[type=time] { padding:8px; margin:0; max-width:130px; }
+.lj-capacity,.lj-feasibility { padding:16px; border-radius:10px; background:var(--mint); margin:20px 0; font-size:13px; }
+.lj-generating { padding:15px; border-left:3px solid var(--brand); margin-top:20px; }
+.sw-niche-dialog:has(.lj-form) { max-width:760px; }
+.lj-roadmap { margin-bottom:40px; }.lj-roadmap .sw-roadmap-hero>div:first-child { flex:1; min-width:220px; }.lj-roadmap .sw-roadmap-hero>.sw-actions { flex-basis:100%; }
+.lj-weeks { display:grid; gap:16px; }.lj-weeks summary { cursor:pointer; padding:2px 0; }.lj-weeks summary>span { margin:0 14px 0 0; }.lj-weeks summary>strong { font-size:16px; }
+.lj-weeks details>p { margin:18px 0; }.lj-sessions { list-style:none; padding:0; margin:0; }.lj-sessions li { display:grid; grid-template-columns:145px 1fr; gap:24px; padding:24px 0; border-top:1px solid var(--line); }
+.lj-sessions h3 { margin:10px 0; }.lj-sessions p { font-size:12px; }.lj-session-time { display:flex; flex-direction:column; gap:5px; font-size:12px; }.lj-session-time>span { color:var(--muted); }
+.lj-tabs { display:flex; flex-wrap:wrap; gap:10px; margin-bottom:24px; }.lj-tabs [aria-pressed=true] { background:var(--lime); border-color:var(--brand); }
+.lj-task { padding:20px; border-radius:12px; background:var(--mint); margin:24px 0; }.lj-task p { white-space:pre-line; }.lj-reflection { margin-top:26px; }
+.lj-session-list { max-height:78vh; overflow-y:auto; }.lj-session-list>button { display:flex; gap:12px; width:100%; padding:15px 8px; border:0; border-top:1px solid var(--line); background:transparent; color:var(--ink); text-align:left; }.lj-session-list>button[aria-current] { background:var(--mint); }.lj-session-list strong,.lj-session-list small { display:block; }.lj-session-list small { color:var(--muted); margin-top:5px; }.lj-session-list strong { font-size:12px; }
+.lj-recall { max-width:740px; padding:38px; }.lj-recall h2 { font-size:32px; }.lj-recall blockquote { margin:24px 0; white-space:pre-line; font-size:17px; line-height:1.9; overflow-wrap:anywhere; }
+.sw-niche-dialog>.sw-actions { margin-top:25px; }
+@media(max-width:700px) { .sw-sidebar nav { grid-template-columns:repeat(3,minmax(0,1fr)); }.lj-sessions li { grid-template-columns:1fr; gap:12px; }.lj-session-time { flex-direction:row; flex-wrap:wrap; gap:10px; }.lj-fields { grid-template-columns:1fr; }.lj-day { flex-wrap:wrap; }.lj-availability { padding:14px; }.lj-recall { padding:24px; }.sw-topbar { flex-wrap:wrap; } }

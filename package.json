@@ -8,6 +8,7 @@
     "preview": "vite preview --host 127.0.0.1",
     "build:extension": "node scripts/build-extension.mjs",
     "test:extension": "node --test scripts/extension.test.mjs",
+    "test:learning": "node --test scripts/learning-plan.test.mjs scripts/learning-ui.test.mjs",
     "predev": "npm run build:extension",
     "build:store": "node scripts/build-extension.mjs --store"
   },
@@ -23,6 +24,7 @@
     "vite": "^8.3.0"
   },
   "devDependencies": {
-    "fflate": "^0.8.3"
+    "fflate": "^0.8.3",
+    "jsdom": "^29.1.1"
   }
 }

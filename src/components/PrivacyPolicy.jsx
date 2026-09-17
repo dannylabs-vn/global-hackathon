@@ -14,14 +14,17 @@ export function PrivacyPolicy() {
       <li><strong>Pages you save:</strong> when you choose Save This Page, Skillmark sends the page URL, title, and extracted text (up to 50,000 characters), associated with your account, to its cloud backend.</li>
       <li><strong>Terms you explain:</strong> invoking the explanation shortcut sends your selected text and nearby context (up to 2,000 characters) to the backend to generate an explanation. Saving a flashcard stores the term, explanation, and source URL in your account.</li>
       <li><strong>Learning results:</strong> bookmark summaries, topics, flashcards, and career reports are used to display your learning workspace.</li>
+      <li><strong>Personal roadmap:</strong> when you generate a plan, your chosen career, skills, experience, goals, availability, timezone, pace, and constraints are sent through our Vercel backend to DeepSeek. Avoid entering sensitive information in these answers. Your generated plan, practice answers, reflections, and completion progress are saved in browser storage under your account on that device; they do not currently sync across devices.</li>
     </ul>
     <h2>When content is accessed</h2>
     <p>The extension accesses page content when you choose to save a page or invoke the explanation shortcut. It does not request browser-history access or automatically collect every page you visit. Choose carefully before saving private or sensitive page content.</p>
     <h2>Cloud processing and storage</h2>
     <p>Skillmark uses Supabase for authentication, database storage, and backend functions. Selected page content and text are sent over HTTPS for server-side analysis and explanation generation. These features are not entirely on-device. Generated results can be inaccurate.</p>
+    <p>Vercel hosts the roadmap API, which verifies your Supabase sign-in before requesting a plan from DeepSeek. Your account password is not sent to DeepSeek. The plan generator sends only your questionnaire answers and selected career information.</p>
     <p>Collected information is used to provide authentication, saved reading, explanations, synchronization, and learning reports. It is not used by Skillmark for advertising or sold to advertisers. Service providers process information as needed to operate these features.</p>
     <h2>Your choices and deletion</h2>
     <p>You can remove saved bookmarks from the workspace and stop further extension access by disabling or uninstalling it. Signing out or uninstalling the extension does not delete records already stored in your account. To request account or other stored-data deletion, contact the support address below from your account email. Do not email your password.</p>
+    <p>Export a personal plan before clearing this website's browser storage if you want to keep a copy. Clearing site data removes plans and practice progress stored on that device. Signing out does not remove those local plans.</p>
     <h2>Contact</h2>
     <p>For questions, support, or data requests: <a href="mailto:dannyhong2310@gmail.com">dannyhong2310@gmail.com</a>.</p>
     <a className="sw-link" href="/">Back to Skillmark</a>

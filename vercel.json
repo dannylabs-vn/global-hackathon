@@ -3,7 +3,11 @@
   "framework": "vite",
   "buildCommand": "npm run build",
   "outputDirectory": "dist",
+  "functions": { "api/learning-plan.js": { "maxDuration": 120 } },
   "rewrites": [
-    { "source": "/(.*)", "destination": "/index.html" }
+    { "source": "/learn/:path*", "destination": "/index.html" },
+    { "source": "/login", "destination": "/index.html" },
+    { "source": "/extension", "destination": "/index.html" },
+    { "source": "/privacy", "destination": "/index.html" }
   ]
 }

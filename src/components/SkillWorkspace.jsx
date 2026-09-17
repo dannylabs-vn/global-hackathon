@@ -1,9 +1,10 @@
 import React, { useEffect, useState } from 'react';
 import './SkillWorkspace.css';
+import { useLearningJourney, PlanQuestionnaire, LearningRoadmap, PracticeWorkspace } from './LearningJourney.jsx';
 import { signOut } from '../lib/auth.js';
 import { analyzeCareer, getCareerReports, getBookmarks, deleteBookmark, getAnalyticsData, getFlashcards } from '../lib/api.js';
 
-const navigation = [['map','◈','Skill map'],['roadmap','⌁','Career Analysis'],['highlights','▤','Bookmark'],['flashcards','✎','Highlight'],['profile','◎','Profile']];
+const navigation = [['map','◈','Skill map'],['roadmap','⌁','Career Analysis'],['practice','\u2726','Practice'],['highlights','▤','Bookmark'],['flashcards','✎','Highlight'],['profile','◎','Profile']];
 const status = value => value >= 55 ? 'Growing' : value >= 40 ? 'At-risk' : 'Foundational';
 const currentView = () => navigation.map(n=>n[0]).includes(window.location.hash.slice(1)) ? window.location.hash.slice(1) : 'map';
 const formatDate = iso => { if (!iso) return ''; try { return new Date(iso).toLocaleDateString('en-US',{month:'short',day:'numeric',year:'numeric'}); } catch { return ''; } };
@@ -34,6 +35,10 @@ function computeWeekly(list) {
 
 export function SkillWorkspace({ user }) {
   const [view,setView] = useState(currentView);
+  const journey = useLearningJourney(user.id);
+  const [practiceSessionId,setPracticeSessionId] = useState(null);
+  function openPractice(id) { setPracticeSessionId(id || journey.plan?.sessions.find(s=>!journey.progress[s.id]?.done)?.id || journey.plan?.sessions[0]?.id); go('practice'); }
+  function saveLearningPlan(plan) { journey.savePlan(plan); setSelectedNiche(null); go('roadmap'); setNotice('Your personal roadmap is ready. Open a session to start practicing.'); }
   const [notice,setNotice] = useState('');
   const [search,setSearch] = useState('');
   const [reverse,setReverse] = useState(false);
@@ -60,7 +65,7 @@ export function SkillWorkspace({ user }) {
   const name = user?.user_metadata?.full_name || user?.user_metadata?.name || user?.email || 'Your account';
   const highlights = flashcards.map(card => ({ title:card.keyword, source:hostnameOf(card.source_url), quote:card.explanation }));
   function go(next) { window.location.hash=next; setView(next); setNotice(''); }
-  function exportData() { const url=URL.createObjectURL(new Blob([JSON.stringify({exported_at:new Date().toISOString(),bookmarks,flashcards,career_reports:reports},null,2)],{type:'application/json'})); const a=document.createElement('a'); a.href=url; a.download='skillmark-workspace.json'; a.click(); setTimeout(()=>URL.revokeObjectURL(url),1000); setNotice('Your workspace has been exported.'); }
+  function exportData() { const url=URL.createObjectURL(new Blob([JSON.stringify({exported_at:new Date().toISOString(),bookmarks,flashcards,career_reports:reports,learning_plan:journey.plan,practice_progress:journey.progress,flashcard_reviews:journey.reviews},null,2)],{type:'application/json'})); const a=document.createElement('a'); a.href=url; a.download='skillmark-workspace.json'; a.click(); setTimeout(()=>URL.revokeObjectURL(url),1000); setNotice('Your workspace has been exported.'); }
   async function handleSignOut() { const {error}=await signOut(); if(error){setNotice(error.message);return;} window.location.href='/'; }
   async function loadReports() {
     setReportsLoading(true);
@@ -154,10 +159,12 @@ export function SkillWorkspace({ user }) {
   const button = (label,action,secondary=false,disabled=false) => <button className={`sw-button ${secondary?'secondary':''}`} onClick={action} disabled={disabled}>{label}</button>;
   return <div className="sw-app">
     <aside className="sw-sidebar"><a href="/" className="site-brand"><span className="brand-skill">Skill</span><span className="brand-mark">mark.</span></a><p className="sw-eyebrow">YOUR WORKSPACE</p><nav aria-label="Workspace">{navigation.map(([id,icon,label])=><button key={id} onClick={()=>go(id)} aria-current={view===id?'page':undefined}><span aria-hidden="true">{icon}</span>{label}{id==='highlights'&&<small>{bookmarks.length}</small>}</button>)}</nav><div className="sw-sidebar-note"><span>✦</span><strong>A little curiosity.<br/>A clearer direction.</strong><p>Turn what you read into what you do next.</p><a href="/">Back to the website ↗</a></div><button className="sw-person" onClick={()=>go('profile')}><span className="sw-avatar">{name.trim().split(/\s+/).map(s=>s[0]).slice(0,2).join('')}</span><span><strong>{name}</strong><small>Your learning space</small></span><span>↗</span></button></aside>
-    <div className="sw-body"><div className="sw-topbar"><span>Workspace <span>/</span> <strong>{navigation.find(n=>n[0]===view)?.[2]||'Reading'}</strong></span><div className="sw-actions"><button className="sw-link" onClick={()=>{loadBookmarks();loadFlashcards();loadAnalytics();loadReports();}}>Refresh data</button><a className="sw-link" href="/extension">Set up extension</a></div></div><main key={view} className="sw-main" tabIndex={-1}>{view==='map'&&(bookmarksError||flashcardsError||analyzeError)&&<div className="sw-notice sw-notice-error" role="alert">{bookmarksError||flashcardsError||analyzeError}</div>}{notice&&<div className="sw-notice" role="status">✓ {notice}<button aria-label="Dismiss notification" onClick={()=>setNotice('')}>×</button></div>}
+    <div className="sw-body"><div className="sw-topbar"><span>Workspace <span>/</span> <strong>{navigation.find(n=>n[0]===view)?.[2]||'Reading'}</strong></span><div className="sw-actions"><button className="sw-link" onClick={()=>{loadBookmarks();loadFlashcards();loadAnalytics();loadReports();}}>Refresh data</button><a className="sw-link" href="/extension">Set up extension</a></div></div><main key={view} className="sw-main" tabIndex={-1}>{journey.storageError&&<div className="sw-notice sw-notice-error" role="alert">{journey.storageError}</div>}{view==='map'&&(bookmarksError||flashcardsError||analyzeError)&&<div className="sw-notice sw-notice-error" role="alert">{bookmarksError||flashcardsError||analyzeError}</div>}{notice&&<div className="sw-notice" role="status">✓ {notice}<button aria-label="Dismiss notification" onClick={()=>setNotice('')}>×</button></div>}
     {view==='map'&&<>{heading('FOLLOW YOUR CURIOSITY','Your reading map','A little more clarity on what to explore next.',<>{button('Export',exportData,true)}{button('Career analysis ↗',()=>go('roadmap'))}</>)}<div className="sw-stats"><div><span className="sw-stat-icon">◈</span><div><strong>{topicStats.length}</strong><span>topics from your bookmarks</span></div></div><div><span className="sw-stat-icon">▤</span><div><strong>{highlights.length}</strong><span>saved highlights</span></div></div><div><span className="sw-stat-icon">✦</span><div><strong>{reports.length}</strong><span>career reports</span></div></div></div><div className="sw-map-grid"><section className="sw-panel sw-signal"><div className="sw-panel-title"><h2>Signal mix</h2><span>By domain category</span></div><div className="sw-donut" role="img" aria-label={domainStats.length?domainStats.map(([l,v])=>`${v} ${l}`).join(', '):'No bookmarks analyzed yet'} style={{background:buildConicGradient(domainStats)}}><div><strong>{domainStats.reduce((sum,[,v])=>sum+v,0)}</strong><span>bookmarks analyzed</span></div></div><div className="sw-legend">{domainStats.length?domainStats.map(([label,value],i)=><div key={label}><i style={{background:DOMAIN_COLORS[i%DOMAIN_COLORS.length]}}/><span>{label}</span><strong>{value}</strong></div>):<p className="sw-small">No bookmarks analyzed yet.</p>}</div><p className="sw-small">A starting point for exploration, not a measure of your ability.</p></section><section className="sw-panel sw-coverage"><div className="sw-panel-title"><h2>Top reading topics</h2><button className="sw-link" onClick={()=>setReverse(!reverse)}>{reverse?'Lowest first':'Highest first'} ↓</button></div>{(()=>{const maxCount=Math.max(1,...topicStats.map(([,c])=>c));const rows=topicStats.map(([title,count])=>[title,Math.round((count/maxCount)*100)]);return [...rows].sort((a,b)=>reverse?a[1]-b[1]:b[1]-a[1]).map(([title,value])=><button className="sw-skill" key={title} onClick={()=>{go('roadmap');}} aria-label={`Explore career paths related to ${title}`}><span>{title}<b>{value}%</b></span><span className="sw-track"><span className={status(value).toLowerCase()} style={{width:`${value}%`}}/></span></button>);})()}{!topicStats.length&&<p className="sw-small">No topics yet — save a few bookmarks to see your top topics here.</p>}<div className="sw-insight"><span>↗</span><p><strong>Curiosity becomes momentum.</strong><br/>Explore career paths from your saved reading.</p></div></section><aside className="sw-right"><section className="sw-activity"><p className="sw-eyebrow">A WEEK OF SMALL DISCOVERIES</p><div className="sw-bars" aria-label="Bookmarks saved per day, last 7 days">{(()=>{const {counts,labels}=computeWeekly(bookmarks);const maxCount=Math.max(1,...counts);return counts.map((c,i)=><div key={i}><span style={{height:`${Math.round((c/maxCount)*100)}%`}}/><small>{labels[i]}</small></div>);})()}</div><p className="sw-small">Last 7 days</p></section><section className="sw-focus"><span className="sw-eyebrow">YOUR NEXT SMALL STEP</span><h2>Make room for<br/>a new perspective.</h2><p>Analyze the topics in your saved pages to explore possible career directions.</p><button className="sw-link" onClick={()=>go('roadmap')}>Give it a try <span>↗</span></button></section><section className="sw-recent"><div className="sw-panel-title"><h2>Recent highlights</h2><button className="sw-link" onClick={()=>go('flashcards')}>View all</button></div>{highlights.slice(0,3).map(h=><button key={h.title} onClick={()=>go('flashcards')}><span>▤</span><div><strong>{h.title}</strong><small>{h.source}</small></div><span>↗</span></button>)}{!highlights.length&&<p>No saved explanations yet. Save a flashcard with the extension to see it here.</p>}</section></aside></div></>}
+    {view==='practice'&&<PracticeWorkspace {...journey} flashcards={flashcards} flashcardsLoading={flashcardsLoading} flashcardsError={flashcardsError} initialSessionId={practiceSessionId} onCareer={()=>go('roadmap')}/>}
     {view==='roadmap'&&<>{heading('CAREER PATH ANALYSIS','Career Path Analysis','Suggestions based on the pages you have saved.',button(analyzing?'Analyzing…':niches.length?'Re-analyze':'Analyze my career path',handleAnalyze,false,analyzing))}
     {analyzeError&&<div className="sw-notice sw-notice-error" role="alert">⚠ {analyzeError}<button aria-label="Dismiss error" onClick={()=>setAnalyzeError('')}>×</button></div>}
+    <LearningRoadmap plan={journey.plan} progress={journey.progress} onPractice={openPractice} onEdit={()=>setSelectedNiche(journey.plan.career)}/>
     <div className="sw-two-col"><div>
     <section className="sw-panel sw-niche-list"><div className="sw-panel-title"><h2>Top matching paths</h2>{analyzedAt&&<span>Updated {formatDate(analyzedAt)}</span>}</div>
     {niches.length?niches.map((niche,i)=><button type="button" className="sw-road-row sw-niche-row" key={niche.id||niche.name} onClick={()=>setSelectedNiche(niche)}><span className="sw-step">{i+1}</span><div><h3>{niche.name}</h3><p>{niche.match_reason}</p><span className="sw-track"><span className={status(niche.match_percent||0).toLowerCase()} style={{width:`${niche.match_percent||0}%`}}/></span></div><span className="sw-tag">{niche.match_percent}% match</span></button>)
@@ -181,21 +188,24 @@ export function SkillWorkspace({ user }) {
     </>}
     {view==='profile'&&<>{heading('YOUR ACCOUNT','Your account','The account connected to your saved reading.')}<div className="sw-two-col"><section className="sw-panel"><h2>{name}</h2><p>{user?.email}</p><p className="sw-small">Joined {formatDate(user?.created_at)}</p><div className="sw-actions">{button('Export saved data',exportData,true)}<button className="sw-link" onClick={handleSignOut}>Sign out</button></div></section><section className="sw-focus"><h2>Your reading.<br/>Your data.</h2><p>Use this same account in the extension to sync your bookmarks and flashcards.</p><p>Only pages and terms you choose to save are sent for analysis.</p><a className="sw-link" href="/privacy">Privacy policy</a></section></div></>}
     <footer className="sw-footer"><span>Skillmark · A little learning. A clearer you.</span><a href="/">Made for your curiosity ↗</a></footer></main></div>
-    {selectedNiche&&<NicheDetailDialog niche={selectedNiche} onClose={()=>setSelectedNiche(null)}/>}
+    {selectedNiche&&<NicheDetailDialog niche={selectedNiche} previousContext={journey.plan?.context} onGenerated={saveLearningPlan} onClose={()=>setSelectedNiche(null)}/>}
   </div>;
 }
-function NicheDetailDialog({ niche, onClose }) {
+function NicheDetailDialog({ niche, previousContext, onGenerated, onClose }) {
+  const [following,setFollowing] = useState(false);
   const ref = React.useRef(null);
   useEffect(() => { const previous = document.activeElement; ref.current.showModal(); return () => previous?.focus(); }, []);
-  const skills = [...(niche.skills||[])].sort((a,b)=>(a.order||0)-(b.order||0));
+  const skills = [...(niche.skills||[])].map((skill,index)=>typeof skill==='string'?{name:skill,order:index+1}:({...skill,order:skill.order||index+1})).sort((a,b)=>(a.order||0)-(b.order||0));
   return <dialog ref={ref} className="sw-dialog sw-niche-dialog" onCancel={onClose} aria-labelledby="niche-dialog-title">
     <button className="sw-icon-close" aria-label="Close" onClick={onClose}>×</button>
-    <p className="sw-eyebrow">{niche.match_percent}% MATCH</p>
+    <p className="sw-eyebrow">{Number.isFinite(niche.match_percent)?`${niche.match_percent}% MATCH`:'YOUR CHOSEN PATH'}</p>
     <h2 id="niche-dialog-title">{niche.name}</h2>
+    {following?<PlanQuestionnaire career={niche} previousContext={previousContext} onGenerated={onGenerated} onBack={()=>setFollowing(false)}/>:<>
     <p>{niche.description}</p>
     <div className="sw-niche-reason"><span>✦</span><p><strong>Why this fits you</strong><br/>{niche.match_reason}</p></div>
-    <h3>Skills roadmap</h3>
+    <h3>Skills to develop</h3>
     <ol className="sw-skill-timeline">{skills.map(skill=><li key={skill.order}><span className={`sw-level-badge ${skill.level}`}>{skill.level}</span><div><strong>{skill.order}. {skill.name}</strong><p>{skill.description}</p></div></li>)}</ol>
-    <div className="sw-actions"><button className="sw-button secondary" onClick={onClose}>Close</button></div>
+    {!skills.length&&<p>Confirm this path to build a skill plan around your experience and goals.</p>}
+    <div className="sw-actions"><button className="sw-button" onClick={()=>setFollowing(true)}>Confirm — I want to follow this path</button><button className="sw-button secondary" onClick={onClose}>Close</button></div></>}
   </dialog>;
 }
