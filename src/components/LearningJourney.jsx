@@ -31,7 +31,7 @@ function defaults() {
 const niceDate = date => new Date(`${date}T12:00:00Z`).toLocaleDateString('en-US',{weekday:'short',month:'short',day:'numeric',timeZone:'UTC'});
 
 export function PlanQuestionnaire({ career, previousContext, onGenerated, onBack }) {
-  const [context,setContext] = useState(() => previousContext ? {...previousContext,startDate:previousContext.startDate < todayInZone(previousContext.timezone) ? todayInZone(previousContext.timezone) : previousContext.startDate} : defaults());
+  const [context,setContext] = useState(() => { const base={...defaults(),...previousContext}; return {...base,startDate:base.startDate < todayInZone(base.timezone) ? todayInZone(base.timezone) : base.startDate}; });
   const [error,setError] = useState('');
   const [busy,setBusy] = useState(false);
   const request = useRef(null);
@@ -104,29 +104,21 @@ export function LearningRoadmap({ plan, progress, onPractice, onEdit }) {
   </section>;
 }
 
-export function PracticeWorkspace({ plan, progress, updateProgress, flashcards, flashcardsLoading, flashcardsError, reviews, reviewCard, initialSessionId, onCareer }) {
-  const [mode,setMode] = useState(plan?'roadmap':'flashcards');
+export function RoadmapPractice({ plan, progress, updateProgress, initialSessionId, onCareer }) {
   const [selected,setSelected] = useState(initialSessionId || plan?.sessions.find(s=>!progress[s.id]?.done)?.id || plan?.sessions[0]?.id);
-  const [cardIndex,setCardIndex] = useState(0);
-  const [revealed,setRevealed] = useState(false);
-  useEffect(()=>{ if(initialSessionId){setSelected(initialSessionId);setMode('roadmap');} },[initialSessionId]);
+  useEffect(()=>{ if(initialSessionId){setSelected(initialSessionId);} },[initialSessionId]);
   const session = plan?.sessions.find(s=>s.id===selected) || plan?.sessions[0];
   const current = session ? progress[session.id] || {} : {};
-  const card = flashcards[cardIndex % Math.max(flashcards.length,1)];
-  useEffect(()=>setRevealed(false),[card?.id]);
-  function nextCard(value) { reviewCard(card.id,value);setRevealed(false);setCardIndex(i=>(i+1)%flashcards.length); }
   function nextSession() { const index=plan.sessions.findIndex(s=>s.id===session.id);setSelected(plan.sessions[(index+1)%plan.sessions.length].id); }
   return <>
-    <header className="sw-heading"><div><p className="sw-eyebrow">TURN LEARNING INTO PRACTICE</p><h1>Your practice<span>.</span></h1><p>Work through your personal roadmap or recall what you saved while reading.</p></div></header>
-    <div className="lj-tabs" role="group" aria-label="Practice source"><button className="sw-button secondary" aria-pressed={mode==='roadmap'} onClick={()=>setMode('roadmap')}>Roadmap sessions</button><button className="sw-button secondary" aria-pressed={mode==='flashcards'} onClick={()=>setMode('flashcards')}>My flashcards ({flashcards.length})</button></div>
-    {mode==='roadmap'&&(!plan?<div className="sw-empty"><h2>Choose a path to begin.</h2><p>Confirm a career, tell us your availability, and generate a roadmap with practice designed for you.</p><button className="sw-button" onClick={onCareer}>Explore career paths</button></div>:<div className="sw-two-col"><section className="sw-panel sw-practice" key={session.id}>
+    <header className="sw-heading"><div><p className="sw-eyebrow">TURN LEARNING INTO PRACTICE</p><h1>Your roadmap session<span>.</span></h1><p>Work through the activities scheduled in your personal roadmap.</p></div></header>
+    {!plan?<div className="sw-empty"><h2>Choose a path to begin.</h2><p>Confirm a career, tell us your availability, and generate a roadmap with practice designed for you.</p><button className="sw-button" onClick={onCareer}>Explore career paths</button></div>:<div className="sw-two-col"><section className="sw-panel sw-practice" key={session.id}>
       <div className="sw-panel-title"><span className="sw-tag">{session.skill}</span><span>{niceDate(session.date)} · {session.start}–{session.end} · {plan.context.timezone}</span></div>
       <h2>{session.title}</h2><p>{session.objective}</p><div className="lj-task"><h3>Your activity</h3><p>{session.activity}</p><h3>What to produce</h3><p>{session.deliverable}</p></div>
       <h3>Check your understanding</h3><p>{session.question.prompt}</p><fieldset disabled={current.checked}><legend className="sw-sr-only">Choose an answer</legend>{session.question.options.map((option,i)=><label key={i} className={`sw-option ${current.answer===i?'selected':''} ${current.checked&&i===session.question.correctIndex?'correct':''}`}><input type="radio" name={`question-${session.id}`} checked={current.answer===i} onChange={()=>updateProgress(session.id,{answer:i})}/><span>{option}</span></label>)}</fieldset>
       {!current.checked?<button className="sw-button" disabled={!Number.isInteger(current.answer)} onClick={()=>updateProgress(session.id,{checked:true})}>Check my answer</button>:<div className="sw-feedback" role="status"><h3>{current.answer===session.question.correctIndex?'Correct — keep building.':'Review this idea, then try again.'}</h3><p>{session.question.explanation}</p><button className="sw-link" onClick={()=>updateProgress(session.id,{answer:null,checked:false})}>Try the question again</button></div>}
       <label className="lj-reflection">Your work or reflection<textarea rows={4} maxLength={4000} value={current.note || ''} onChange={e=>updateProgress(session.id,{note:e.target.value})} placeholder="Record what you built, a project link, or what you still want to understand."/></label>
       <div className="sw-actions"><button className="sw-button" disabled={!current.done&&(!current.checked||!current.note?.trim())} onClick={()=>updateProgress(session.id,{done:!current.done,completedAt:current.done?null:new Date().toISOString()})}>{current.done?'Mark as unfinished':'I completed this session'}</button><button className="sw-button secondary" onClick={nextSession}>Next session →</button></div><p className="sw-small">Completion is self-reported. Check the question and record your work before marking a session complete.</p>
-    </section><aside className="sw-panel lj-session-list"><h2>{plan.career.name}</h2><p>{plan.sessions.filter(s=>progress[s.id]?.done).length} of {plan.sessions.length} sessions completed</p>{plan.sessions.map(s=><button key={s.id} aria-current={s.id===session.id?'step':undefined} onClick={()=>setSelected(s.id)}><span>{progress[s.id]?.done?'✓':s.week}</span><span><strong>{s.title}</strong><small>{niceDate(s.date)} · {s.start}</small></span></button>)}</aside></div>)}
-    {mode==='flashcards'&&(flashcardsError?<div className="sw-notice sw-notice-error" role="alert">{flashcardsError}</div>:flashcardsLoading&&!card?<p role="status">Loading your flashcards…</p>:!card?<div className="sw-empty"><h2>Your own discoveries belong here.</h2><p>Use the extension to highlight a term and save its explanation. Your saved flashcards become recall practice here.</p><a className="sw-button" href="/extension">Set up the extension</a></div>:<section className="sw-panel lj-recall"><p className="sw-eyebrow">CARD {cardIndex%flashcards.length+1} OF {flashcards.length}</p><h2>{card.keyword}</h2><p>Explain this idea in your own words before revealing your saved explanation.</p>{!revealed?<button className="sw-button" onClick={()=>setRevealed(true)}>Reveal explanation</button>:<><blockquote>{card.explanation || 'No explanation was saved for this card.'}</blockquote><div className="sw-actions"><button className="sw-button secondary" onClick={()=>nextCard('review')}>Review again</button><button className="sw-button" onClick={()=>nextCard('remembered')}>I remembered it</button></div></>}{reviews[card.id]&&<p className="sw-small">Last review: {reviews[card.id].value==='remembered'?'remembered':'needs another look'}</p>}<p className="sw-small">Your recall progress is saved for this account in this browser.</p></section>)}
+    </section><aside className="sw-panel lj-session-list"><h2>{plan.career.name}</h2><p>{plan.sessions.filter(s=>progress[s.id]?.done).length} of {plan.sessions.length} sessions completed</p>{plan.sessions.map(s=><button key={s.id} aria-current={s.id===session.id?'step':undefined} onClick={()=>setSelected(s.id)}><span>{progress[s.id]?.done?'✓':s.week}</span><span><strong>{s.title}</strong><small>{niceDate(s.date)} · {s.start}</small></span></button>)}</aside></div>}
   </>;
 }

@@ -25,8 +25,14 @@ test('career confirmation, questionnaire, real plan practice and per-account per
     const tables={career_reports:[{id:'report',created_at:new Date().toISOString(),report_text:JSON.stringify({niches:[career]})}],flashcards:[{id:'card',keyword:'Idempotency',explanation:'Repeating an operation has the same effect.',created_at:new Date().toISOString()}]};
     supabase.auth.getSession=async()=>({data:{session:{access_token:'test-token'}},error:null});
     supabase.from=table=>{const query={select:()=>query,eq:()=>query,order:()=>query,then:resolve=>Promise.resolve(resolve({data:tables[table]||[],error:null}))};return query;};
-    let requestBody,failGeneration=false;
+    let requestBody,failGeneration=false,practiceRequests=0,practiceFailure=null;
     globalThis.fetch=async (url,options)=>{
+      if(url==='/api/practice-question') {
+        practiceRequests++;
+        assert.equal(options.headers.Authorization,'Bearer test-token');
+        if(practiceFailure)return new Response(JSON.stringify(practiceFailure),{status:422,headers:{'Content-Type':'application/json'}});
+        return new Response(JSON.stringify({success:true,keyword:'Idempotency',question:`Question ${practiceRequests}: what happens after repeating an idempotent request?`,options:['The same effect.','A new duplicate.','A random effect.'],correct_answer:'The same effect.',explanation:'Repeating the request has the same effect.'}),{status:200,headers:{'Content-Type':'application/json'}});
+      }
       assert.equal(url,'/api/learning-plan');assert.equal(options.headers.Authorization,'Bearer test-token');
       if(failGeneration)return new Response(JSON.stringify({error:'AI quota exhausted. Retry later.'}),{status:429,headers:{'Content-Type':'application/json'}});
       requestBody=JSON.parse(options.body);
@@ -86,10 +92,36 @@ test('career confirmation, questionnaire, real plan practice and per-account per
     assert.equal(saved.plan.id,'generated-plan');assert.equal(saved.progress['session-1'].done,true);
     await act(async()=>{root.render(React.createElement(SkillWorkspace,{user:{...user,id:'bob',email:'bob@example.invalid'},key:'bob'}));await settle();});
     assert(!document.querySelector('.lj-roadmap'),'Another account must not see Alice\'s plan');
-    await click('Practice');await click('My flashcards');await click('Reveal explanation');
-    assert(document.body.textContent.includes('Repeating an operation has the same effect.'));
-    await click('I remembered it');
-    assert.equal(JSON.parse(window.localStorage.getItem('skillmark:learning:v1:bob')).reviews.card.value,'remembered');
+    await click('Practice');
+    assert(document.body.textContent.includes('Put curiosity into practice'));
+    assert.equal(document.querySelectorAll('input[type=radio]').length,3);
+    assert.equal(practiceRequests,1);
+    const check=[...document.querySelectorAll('button')].find(b=>b.textContent.includes('Check my answer'));
+    assert(check.disabled,'Must choose an answer first');
+    await act(async()=>{document.querySelectorAll('input[type=radio]')[1].click();await settle();});
+    await act(async()=>{check.click();check.click();await settle();});
+    assert(document.querySelector('.sw-feedback').textContent.includes('Another way to look at it.'));
+    assert.equal(document.querySelector('.sw-up-next strong').textContent,'1','Double clicks must not count twice');
+    assert(document.querySelector('.sw-option.correct').textContent.includes('The same effect.'));
+    await click('Career Analysis');await click('Practice');
+    assert.equal(practiceRequests,1,'Navigating back preserves this session');
+    assert.equal(document.querySelector('.sw-up-next strong').textContent,'1');
+    await click('Next question');
+    assert.equal(practiceRequests,2);assert.equal(document.querySelectorAll('input:checked').length,0);
+    assert(!document.querySelector('.sw-feedback'));
+    await click('Skip to another question');
+    assert.equal(practiceRequests,3);assert.equal(document.querySelector('.sw-up-next strong').textContent,'1');
+    await act(async()=>{document.querySelector('input[type=radio]').click();await settle();});
+    await click('Check my answer');await click('Add to roadmap');await click('Software Engineering');await click('I want to follow this path');
+    assert(labelInput('Anything else to plan around?').value.includes('Idempotency'),'Roadmap focus must be carried into the questionnaire');
+    await act(async()=>{document.querySelector('dialog button[aria-label=Close]').click();await settle();});
+    await click('Practice');practiceFailure={error:'No saved flashcards remain.',code:'NO_FLASHCARDS'};await click('Next question');
+    assert(document.body.textContent.includes('Save a keyword to begin'));
+    assert(document.body.textContent.includes('No saved flashcards remain.'));
+    practiceFailure=null;await click('Try again');
+    assert.equal(document.querySelectorAll('input[type=radio]').length,3);
+    await act(async()=>{root.render(React.createElement(SkillWorkspace,{user:{...user,id:'charlie',email:'charlie@example.invalid'},key:'charlie'}));await settle();});
+    assert.equal(document.querySelector('.sw-up-next strong').textContent,'0','Practice count resets for another account');
   } finally {
     if(root)await act(async()=>root.unmount());
     await authClient?.dispose();

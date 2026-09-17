@@ -1,4 +1,23 @@
 import { supabase } from './supabase';
+import { validatePracticeQuestion } from '../../shared/practice-question.js';
+
+// Duy's Practice response contract, served by our DeepSeek Vercel endpoint.
+export async function generatePracticeQuestion(signal) {
+  try {
+    const {data:{session},error}=await supabase.auth.getSession();
+    if(error || !session)return {data:null,error:{message:'Sign in again before practicing.'}};
+    const response=await fetch('/api/practice-question',{
+      method:'POST',headers:{Authorization:`Bearer ${session.access_token}`},signal,
+    });
+    if(!response.headers.get('content-type')?.includes('application/json'))throw new Error('The practice service is not available on this deployment. Please refresh or retry after deployment finishes.');
+    const data=await response.json();
+    if(!response.ok)return {data:null,error:{message:data.error || 'Could not generate a practice question.',code:data.code}};
+    return {data:validatePracticeQuestion(data),error:null};
+  } catch(error) {
+    if(error.name==='AbortError')throw error;
+    return {data:null,error:{message:error.message || 'Could not generate a practice question.'}};
+  }
+}
 
 // ============================================
 // BOOKMARKS
