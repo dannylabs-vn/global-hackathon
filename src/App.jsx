@@ -39,7 +39,7 @@ export function App() {
   if (path.startsWith('/learn')) {
     if (session === undefined) return null;
     if (!session) return <Auth onAuthenticated={() => {}} />;
-    return <SkillWorkspace />;
+    return <SkillWorkspace key={session.user.id} user={session.user} />;
   }
 
   return <LandingApp />;

@@ -6,7 +6,7 @@ import { supabase } from './supabase';
 
 // Lấy danh sách bookmark + kết quả phân tích
 // Tương đương: GET /api/bookmarks?include=analysis
-export async function getBookmarks() {
+export async function getBookmarks(userId) {
   const { data, error } = await supabase
     .from('bookmarks')
     .select(`
@@ -22,6 +22,7 @@ export async function getBookmarks() {
         technical_depth
       )
     `)
+    .eq('user_id', userId)
     .order('created_at', { ascending: false });
 
   return { data, error };
@@ -52,7 +53,7 @@ export async function getBookmarks() {
 
 // Lấy tất cả analysis để tổng hợp thống kê
 // Tương đương: GET /api/analytics/overview
-export async function getAnalyticsData() {
+export async function getAnalyticsData(userId) {
   const { data, error } = await supabase
     .from('bookmark_analysis')
     .select(`
@@ -61,7 +62,8 @@ export async function getAnalyticsData() {
       technical_depth,
       created_at,
       bookmarks!inner (user_id)
-    `);
+    `)
+    .eq('bookmarks.user_id', userId);
 
   return { data, error };
 }
@@ -134,10 +136,11 @@ export async function analyzeCareer() {
 
 // Lấy lịch sử career reports
 // Tương đương: GET /api/career/reports
-export async function getCareerReports() {
+export async function getCareerReports(userId) {
   const { data, error } = await supabase
     .from('career_reports')
     .select('*')
+    .eq('user_id', userId)
     .order('created_at', { ascending: false });
 
   return { data, error };
@@ -161,11 +164,12 @@ export async function getCareerReports() {
 // XÓA BOOKMARK (nếu cần)
 // ============================================
 
-export async function deleteBookmark(id) {
+export async function deleteBookmark(id, userId) {
   const { error } = await supabase
     .from('bookmarks')
     .delete()
-    .eq('id', id);
+    .eq('id', id)
+    .eq('user_id', userId);
 
   return { error };
 }
@@ -175,10 +179,11 @@ export async function deleteBookmark(id) {
 // ============================================
 
 // Lấy danh sách flashcard đã lưu từ tính năng highlight trên extension
-export async function getFlashcards() {
+export async function getFlashcards(userId) {
   const { data, error } = await supabase
     .from('flashcards')
     .select('id, keyword, explanation, source_url, created_at')
+    .eq('user_id', userId)
     .order('created_at', { ascending: false });
 
   return { data, error };
