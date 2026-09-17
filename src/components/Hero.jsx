@@ -1,4 +1,5 @@
 ﻿import React from 'react';
+import { extensionInstallUrl } from '../lib/extension-install.js';
 
 export function Hero() {
   return (
@@ -9,7 +10,7 @@ export function Hero() {
       <h1>Turn scattered reading<br />into a skill plan that's<br className="mobile-break" /> <span className="hero-highlight">actually you.</span></h1>
       <p className="hero-description">Highlight anything while you browse. Skillmark explains it, labels the skill behind it, and quietly builds your Skill Gap Map — turning hours of scrolling into a learning path you can follow.</p>
       <div className="hero-actions">
-        <a href="#get-started" className="theme-button theme-button-primary">
+        <a href={extensionInstallUrl} className="theme-button theme-button-primary">
           <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" aria-hidden="true"><path d="M8 4H4v6h2a2 2 0 1 1 0 4H4v6h6v-2a2 2 0 1 1 4 0v2h6v-6h-2a2 2 0 1 1 0-4h2V4h-6V2a2 2 0 1 0-4 0v2H8Z" /></svg>
           Add Skillmark to Chrome — free
         </a>

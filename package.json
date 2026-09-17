@@ -3,18 +3,26 @@
   "version": "1.0.0",
   "description": "",
   "scripts": {
-    "dev": "vite --host 127.0.0.1",
-    "build": "vite build",
-    "preview": "vite preview --host 127.0.0.1"
+    "dev": "vite --host 127.0.0.1 --port 5173 --strictPort",
+    "build": "npm run build:extension && vite build",
+    "preview": "vite preview --host 127.0.0.1",
+    "build:extension": "node scripts/build-extension.mjs",
+    "test:extension": "node --test scripts/extension.test.mjs",
+    "predev": "npm run build:extension",
+    "build:store": "node scripts/build-extension.mjs --store"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
   "type": "module",
   "dependencies": {
+    "@supabase/supabase-js": "^2.116.0",
     "parse5": "^8.0.1",
     "react": "^19.3.0",
     "react-dom": "^19.3.0",
     "vite": "^8.3.0"
+  },
+  "devDependencies": {
+    "fflate": "^0.8.3"
   }
 }

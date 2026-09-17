@@ -1,6 +1,7 @@
 import React, { useEffect, useRef, useState } from "react";
 import { createPortal } from "react-dom";
 import "./Footer.css";
+import { extensionInstallUrl } from '../lib/extension-install.js';
 
 function FooterPanel({ kind, onClose, onDemo }) {
   const ref = useRef(null);
@@ -102,9 +103,9 @@ export function Footer({ onDemo }) {
             Add Margin and let the reading you already do start compounding into
             a plan.
           </p>
-          <button
+          <a
             className="closing-install"
-            onClick={() => setPanel("install")}
+            href={extensionInstallUrl}
           >
             <svg
               width="18"
@@ -120,7 +121,7 @@ export function Footer({ onDemo }) {
               <path d="M19.439 7.85c-.049.322.059.648.289.878a1 1 0 0 0 .878.29 2 2 0 1 1 0 3.964 1 1 0 0 0-1.168 1.169c.13.81.19 1.63.18 2.449a1 1 0 0 1-.996.996 14.4 14.4 0 0 1-2.45-.18 1 1 0 0 0-1.168 1.169 2 2 0 1 1-3.964 0 1 1 0 0 0-1.168-1.169c-.811.13-1.63.19-2.45.18a1 1 0 0 1-.996-.996 14.4 14.4 0 0 1 .18-2.45 1 1 0 0 0-1.169-1.168 2 2 0 1 1 0-3.964A1 1 0 0 0 7.85 7.85a14.4 14.4 0 0 1-.18-2.45 1 1 0 0 1 .996-.996c.82-.01 1.639.05 2.45.18a1 1 0 0 0 1.168-1.169 2 2 0 1 1 3.964 0 1 1 0 0 0 1.168 1.169c.811-.13 1.63-.19 2.45-.18a1 1 0 0 1 .996.996c.01.82-.05 1.639-.18 2.45Z" />
             </svg>
             Add Margin to Chrome — free
-          </button>
+          </a>
           <p className="closing-note">
             Free during beta · Chrome &amp; Firefox · No account, ever
           </p>
