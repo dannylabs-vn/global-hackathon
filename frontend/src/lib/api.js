@@ -194,3 +194,37 @@ export async function getFlashcards() {
 //     created_at: "2026-09-17T10:30:00Z"
 //   }
 // ]
+
+// ============================================
+// PRACTICE (câu hỏi trắc nghiệm sinh từ flashcards)
+// ============================================
+
+// Gọi Edge Function sinh 1 câu hỏi trắc nghiệm ngẫu nhiên từ flashcards của user
+// Tương đương: POST /api/practice/generate
+export async function generatePracticeQuestion() {
+  const { data, error } = await supabase.functions.invoke('generate-practice-question');
+
+  if (error) {
+    let message = error.message || 'Could not generate a practice question.';
+    try {
+      const body = await error.context.json();
+      if (body?.error) message = body.error;
+    } catch {}
+    return { data: null, error: { message } };
+  }
+
+  return { data, error: null };
+}
+
+// Response format (từ Edge Function):
+// data = {
+//   success: true,
+//   keyword: "Docker",
+//   question: "Docker container khác gì so với máy ảo (VM)?",
+//   options: ["...", "...", "..."],
+//   correct_answer: "...",   // khớp nguyên văn 1 trong 3 options
+//   explanation: "..."
+// }
+//
+// Lỗi khi chưa có flashcard nào: message = "Chưa có flashcard nào để tạo câu hỏi. Hãy lưu vài từ khóa trước."
+// LƯU Ý: mỗi lần gọi trả về 1 câu hỏi mới, ngẫu nhiên — không cache/lưu DB.

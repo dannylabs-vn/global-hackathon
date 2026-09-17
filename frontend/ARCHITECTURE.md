@@ -170,6 +170,42 @@ Khi INSERT vào `bookmarks` → trigger `on_bookmark_created` gọi Edge Functio
 - Có xử lý CORS (OPTIONS request) vì được gọi trực tiếp từ browser, khác các Edge Function khác chỉ gọi server-to-server
 - Extension tự INSERT vào bảng `flashcards` khi user bấm "Save to flashcard" (không qua Edge Function)
 
+**`generate-practice-question`** ✅ (đã deploy, đang hoạt động):
+- Được gọi từ Dashboard (trang Practice) để sinh câu hỏi trắc nghiệm ôn tập
+- Nhận: request có JWT token (user đã auth trên dashboard) — KHÔNG cần body
+- Flow:
+  1. Lấy user_id từ JWT token qua Supabase auth
+  2. Query toàn bộ flashcards (keyword + explanation) của user đó
+  3. Nếu user chưa có flashcard nào → trả lỗi 422 "Chưa có flashcard nào để tạo câu hỏi"
+  4. Gửi Gemini toàn bộ danh sách flashcards, yêu cầu AI tự chọn 1 keyword ngẫu nhiên và sinh 1 câu hỏi trắc nghiệm
+  5. Validate: đáp án đúng (correct_answer) phải khớp với 1 trong 3 options — nếu không khớp thì trả lỗi 422
+  6. Trả JSON về cho dashboard — KHÔNG lưu vào DB (mỗi lần gọi là 1 câu hỏi mới, ngẫu nhiên)
+- Dùng Gemini API (`gemini-2.5-flash`)
+- Dùng 2 Supabase client riêng: `anon key + JWT` để xác thực user, `service_role key` để query flashcards
+- Gọi từ frontend: `supabase.functions.invoke('generate-practice-question')`
+
+Response format:
+\`\`\`json
+{
+  "success": true,
+  "keyword": "Docker",
+  "question": "Docker container khác gì so với máy ảo (VM)?",
+  "options": [
+    "Container chia sẻ kernel với host OS, VM có OS riêng hoàn chỉnh",
+    "Container và VM hoạt động hoàn toàn giống nhau",
+    "Container chỉ chạy được trên Linux, VM chạy mọi hệ điều hành"
+  ],
+  "correct_answer": "Container chia sẻ kernel với host OS, VM có OS riêng hoàn chỉnh",
+  "explanation": "Container ảo hóa ở tầng OS, dùng chung kernel với host nên nhẹ và khởi động nhanh hơn VM..."
+}
+\`\`\`
+
+Lỗi khi chưa có flashcard (422):
+\`\`\`json
+{ "error": "Chưa có flashcard nào để tạo câu hỏi. Hãy lưu vài từ khóa trước." }
+\`\`\`
+
+
 ## mockData.json — Dữ liệu 15 ngách IT
 
 File `mockData.json` ở root project chứa 15 ngách IT định sẵn, mỗi ngách gồm:
